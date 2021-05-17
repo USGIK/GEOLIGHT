@@ -14,26 +14,32 @@ $models = mysqli_query($connection, "SELECT * FROM `models` WHERE `user`='".$_SE
     <title>Ваши модели</title>
 </head>
 <body>
-    <?php require_once "nav.php"; ?><br>
-    <main class="main">
-        <h1>Ваши модели</h1>
-        <div class="models">
-            <?php
-            while($model = mysqli_fetch_assoc($models)) {
-            ?>
-            <div class="model">
-                <div class="title">
-                    <h2><?php echo $model['src']; ?></h2>
+    <div class="wrapper">
+        <?php require_once "nav.php"; ?><br>
+        <section class="models">
+            <div class="models__body">
+                <div class="models__title">
+                    <h1>Ваши модели</h1>
                 </div>
-                <form action="config/div.php" method="get">
-                    <input type="hidden" name="src" value="<?php echo $model['src']; ?>">
-                    <button name="edit_model" type="submit">Изменить модель</button>
-                </form>
             </div>
-            <?php
-            }
-            ?>
-        </div>
-    </main>
+        </section>
+            <div class="models">
+                <?php
+                while($model = mysqli_fetch_assoc($models)) {
+                ?>
+                <div class="model">
+                    <div class="title">
+                        <h2><?php echo $model['src']; ?></h2>
+                    </div>
+                    <form action="config/div.php" method="get">
+                        <input type="hidden" name="src" value="<?php echo $model['src']; ?>">
+                        <button name="edit_model" type="submit">Изменить модель</button>
+                    </form>
+                </div>
+                <?php
+                }
+                ?>
+            </div>
+    </div>
 </body>
 </html>

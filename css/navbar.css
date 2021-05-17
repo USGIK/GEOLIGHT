@@ -23,6 +23,17 @@ a:hover {
     padding-right: 20%;
 }
 
+.nav-form {
+    background: black;
+}
+
+.nav-form button {
+    padding: 8px;
+    border: none;
+    background: rgb(77, 77, 77);
+}
+
+
 .nav-button {
     color: white;
     font-weight: bolder;

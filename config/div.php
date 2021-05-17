@@ -16,7 +16,7 @@ if (
     }
 
 if (isset($_POST['loginreg']) and isset($_POST['passwordreg'])) {
-    if (mysqli_query($connection, "INSERT INTO `users` (`login`, `password`) VALUES ('".$_POST['loginreg']."', '".$_POST['passwordreg']."')")) {
+    if (mysqli_query($connection, "INSERT INTO `users` (`login`, `password`) VALUES ('".$_POST['loginreg']."', '".md5($_POST['passwordreg'])."')")) {
         $_SESSION['login'] = $_POST['loginreg'];
         header("Location: /add.php");
         exit();
@@ -24,10 +24,14 @@ if (isset($_POST['loginreg']) and isset($_POST['passwordreg'])) {
 }
 
 if (isset($_POST['login']) and isset($_POST['password'])) {
-    $query = mysqli_query($connection, "SELECT * FROM `users` WHERE `login`='".$_POST['login']."' AND `password`='".$_POST['password']."'");
+    $query = mysqli_query($connection, "SELECT * FROM `users` WHERE `login`='".$_POST['login']."' AND `password`='".md5($_POST['password'])."'");
     if (mysqli_num_rows($query) == 1) {
         $_SESSION['login'] = $_POST['login'];
         header("Location: /add.php");
+        exit();
+    }
+    else {
+        header("Location: /auth.php");
         exit();
     }
 }
@@ -63,3 +67,9 @@ if (
         header("Location: /index.php");
         exit();
     }
+
+if (isset($_GET['exit'])) {
+    unset($_SESSION['login']);
+    header("Location: /index.php");
+    exit();
+}
